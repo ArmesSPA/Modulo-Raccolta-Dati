@@ -1,0 +1,363 @@
+window.onload = () => {
+    const oggi = new Date();
+    const giorno = String(oggi.getDate()).padStart(2, '0');
+    const mese = String(oggi.getMonth() + 1).padStart(2, '0');
+    const anno = oggi.getFullYear();
+    const dataLocale = `${giorno}/${mese}/${anno}`;
+    document.getElementById("data").textContent = dataLocale;
+};
+
+document.getElementById("normativa").value = "NTC 2018";
+let dataLocale = new Date().toLocaleDateString();
+document.getElementById("vita-soppalco").value = "50 Anni";
+
+function cercaIndirizzo() {
+  const via = document.getElementById("via")?.value.trim();
+  const citta = document.getElementById("citta")?.value.trim();
+  const paese = document.getElementById("paese")?.value.trim();
+
+  if (!via || !citta || !paese) {
+    alert("Inserisci indirizzo, città e paese.");
+    return;
+  }
+
+  // Mostra loader
+  const loader = document.getElementById("loader");
+  loader.style.display = "flex";
+
+  const query = encodeURIComponent(`${via}, ${citta}, ${paese}`);
+  fetch(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.length > 0) {
+        const luogo = data[0];
+        document.getElementById("cap").value = luogo.address.postcode || "Non trovato";
+        document.getElementById("provincia").value = luogo.address.county || "Non trovata";
+        document.getElementById("lat").value = luogo.lat;
+        document.getElementById("lon").value = luogo.lon;
+      } else {
+        alert("Nessun risultato trovato.");
+      }
+    })
+    .catch(error => {
+      console.error("Errore nella fetch:", error);
+      alert("Errore durante la richiesta.");
+    })
+    .finally(() => {
+      // Nascondi loader
+      loader.style.display = "none";
+    });
+}
+
+// POSIZIONE SCAFFALATURA
+let radiosPosizione = document.querySelectorAll('input[name="posizione-scaffalatura"]');
+radiosPosizione.forEach(radio => {
+    radio.addEventListener("click", function () {
+        if (this.value === "Su Pavimento" && this.checked) {
+            document.getElementById("hidden-pavimento").style.display = "block";
+            document.getElementById("hidden-solaio").style.display = "none";
+        } else if (this.value === "Su Solaio" && this.checked) {
+            document.getElementById("hidden-solaio").style.display = "block";
+            document.getElementById("hidden-pavimento").style.display = "none";
+        }
+
+        // Deseleziona se cliccato due volte
+        if (this.dataset.checked === "true") {
+            this.checked = false;
+            document.getElementById("hidden-pavimento").style.display = "none";
+            document.getElementById("hidden-solaio").style.display = "none";
+        }
+        this.dataset.checked = this.checked.toString();
+    });
+});
+
+
+// MAGAZZINO
+let radiosMagazzino = document.querySelectorAll('input[name="magazzino"]');
+radiosMagazzino.forEach(radio => {
+    radio.addEventListener("click", function () {
+        if (this.value === "magazzinoFreddo" && this.checked) {
+            document.getElementById("hidden-temperatura").style.display = "block";
+        } 
+        
+        else {
+            document.getElementById("hidden-temperatura").style.display = "none";
+        }
+
+        if (this.dataset.checked === "true") {
+            this.checked = false;
+            document.getElementById("hidden-temperatura").style.display = "none";
+        }
+        this.dataset.checked = this.checked.toString();
+    });
+});
+
+// TIPOLOGIA    
+let radiosDoghe = document.querySelectorAll('input[name="doghe"]');
+let radiosLegno = document.querySelectorAll('input[name="legno"]');
+let radiosGrecataLegno = document.querySelectorAll('input[name="grecataLegno"]');
+let radiosGreacataCLS = document.querySelectorAll('input[name="grecataCLSAlleggerito"]');
+radiosDoghe.forEach(radio => {
+    radio.addEventListener("click", function () {
+        if (this.dataset.checked === "true") {
+            this.checked = false;
+        }
+        this.dataset.checked = this.checked.toString();
+    });
+});
+radiosLegno.forEach(radio => {
+    radio.addEventListener("click", function () {
+        if (this.dataset.checked === "true") {
+            this.checked = false;
+        }
+        this.dataset.checked = this.checked.toString();
+    });
+});
+radiosGrecataLegno.forEach(radio => {
+    radio.addEventListener("click", function () {
+        if (this.dataset.checked === "true") {
+            this.checked = false;
+        }
+        this.dataset.checked = this.checked.toString();
+    });
+});
+radiosGreacataCLS.forEach(radio => {
+    radio.addEventListener("click", function () {
+        if (this.dataset.checked === "true") {
+            this.checked = false;
+        }
+        this.dataset.checked = this.checked.toString();
+    });
+});
+
+// FINITURE
+let radiosFinitura = document.querySelectorAll('input[name="finitura"]');
+let selectColore = document.getElementById("colore-select");
+let specialeDiv = document.getElementById("hidden-specialeColore");
+let inputSpeciale = document.getElementById("colore-speciale");
+
+function aggiornaSpecialeColore() {
+    if (selectColore.value === "Colore Speciale a Scelta") {
+        specialeDiv.style.display = "block";
+    } else {
+        specialeDiv.style.display = "none";
+        inputSpeciale.value = "";
+    }
+}
+
+// Listener fisso sul select (una volta sola)
+selectColore.addEventListener("change", aggiornaSpecialeColore);
+
+radiosFinitura.forEach(radio => {
+    radio.addEventListener("click", function () {
+        let sceltaColoreDiv = document.getElementById("hidden-sceltaColore");
+        let zincaturaDiv = document.getElementById("hidden-zincatura");
+
+        if (this.dataset.checked === "true") {
+            this.checked = false;
+            sceltaColoreDiv.style.display = "none";
+            zincaturaDiv.style.display = "none";
+            specialeDiv.style.display = "none";
+            inputSpeciale.value = "";
+        } else {
+            if (this.value === "finituraColore") {
+                sceltaColoreDiv.style.display = "block";
+                zincaturaDiv.style.display = "none";
+                aggiornaSpecialeColore(); // <-- fondamentale per il tuo problema
+            } else if (this.value === "finituraZincatura") {
+                zincaturaDiv.style.display = "block";
+                sceltaColoreDiv.style.display = "none";
+                specialeDiv.style.display = "none";
+                inputSpeciale.value = "";
+            }
+        }
+
+        // Aggiorna stato checked personalizzato
+        radiosFinitura.forEach(r => r.dataset.checked = "false");
+        this.dataset.checked = this.checked.toString();
+    });
+});
+
+let radioRelazione = document.getElementsByName("relazioneCalcolo")[0];
+let radioCertificazione = document.getElementsByName("certificazioneMateriali")[0];
+let radioProvini = document.getElementsByName("provini")[0];
+let radioDichiarazione = document.getElementsByName("dichiarazioneConformita")[0];
+
+function toggleRadio(radio) {
+    radio.addEventListener("click", function () {
+        if (this.dataset.checked === "true") {
+            this.checked = false;
+            this.dataset.checked = "false";
+        } else {
+            this.dataset.checked = "true";
+        }
+    });
+}
+
+toggleRadio(radioRelazione);
+toggleRadio(radioCertificazione);
+toggleRadio(radioProvini);
+toggleRadio(radioDichiarazione);
+
+let arrayGL8 = [];
+
+function aggiungiPreventivo(event) {
+    event.preventDefault();
+
+    let numeroPreventivo = document.getElementById("numeroPreventivo").value;
+    let cliente = document.getElementById("cliente").value;
+    let normativa = document.getElementById("normativa").value;
+    let via = document.getElementById("via").value;
+    let citta = document.getElementById("citta").value;
+    let paese = document.getElementById("paese").value;
+    let cap = document.getElementById("cap").value;
+    let provincia = document.getElementById("provincia").value;
+    let lat = document.getElementById("lat").value;
+    let lon = document.getElementById("lon").value;
+    let posizioneScaffalatura = document.querySelector('input[name="posizione-scaffalatura"]:checked')?.value || "";
+
+    let nuovoPreventivo = ({
+        numeroPreventivo : numeroPreventivo,
+        cliente : cliente,
+        data : dataLocale,
+        normativa : normativa,
+        via : via,
+        citta : citta,
+        paese : paese,
+        cap : cap,
+        provincia : provincia,
+        lat : lat,
+        lon : lon,
+        posizioneScaffalatura : posizioneScaffalatura,
+    });
+
+    if (posizioneScaffalatura === "Su Pavimento") {
+        let spessore = document.getElementById("spessore-pavimento").value;
+        let qualitaCalcestruzzo = document.getElementById("qualitaCalcestruzzo-pavimento").value;
+
+        nuovoPreventivo.spessore = document.getElementById("spessore-pavimento").value;
+        nuovoPreventivo.qualitaCalcestruzzo = document.getElementById("qualitaCalcestruzzo-pavimento").value;
+    }
+    else if (posizioneScaffalatura === "Su Solaio") {
+        let spessore = document.getElementById("spessore-solaio").value;
+        let qualitaCalcestruzzo = document.getElementById("qualitaCalcestruzzo-solaio").value;
+        let altezzaEdificio = document.getElementById("altezzaEdificio").value;
+        let quotaEstrodosso = document.getElementById("quotaEstrodosso").value;
+
+        nuovoPreventivo.spessore = document.getElementById("spessore-solaio").value;
+        nuovoPreventivo.qualitaCalcestruzzo = document.getElementById("qualitaCalcestruzzo-solaio").value;
+        nuovoPreventivo.altezzaEdificio = document.getElementById("altezzaEdificio").value;
+        nuovoPreventivo.quotaEstrodosso = document.getElementById("quotaEstrodosso").value;
+    }
+
+    let distanzaDaElementiStrutturali = document.getElementById("distanzaElementi").value;
+    nuovoPreventivo.distanzaDaElementiStrutturali = distanzaDaElementiStrutturali;
+
+    let distanzaBordoSoletta = document.getElementById("distanzaSoletta").value;
+    nuovoPreventivo.distanzaBordoSoletta = distanzaBordoSoletta;
+
+    let vitaImpianto = document.getElementById("vita-soppalco").value;
+    nuovoPreventivo.vitaImpianto = vitaImpianto;
+
+    let classeUso = document.getElementById("classeUso").value;
+    let sottosuolo = document.getElementById("sottosuolo").value;
+    let topografica = document.getElementById("topografica").value;
+    let temperaturaMagazzino = document.querySelector('input[name="magazzino"]:checked');
+    let condensaMagazzino = document.querySelector('input[name="condensa"]:checked');
+
+    nuovoPreventivo.classeUso = classeUso;
+    nuovoPreventivo.sottosuolo = sottosuolo;
+    nuovoPreventivo.topografica = topografica;
+
+    if(temperaturaMagazzino && temperaturaMagazzino.value === "magazzinoAmbiente") {
+        nuovoPreventivo.temperaturaMagazzino = document.getElementById("temperatura").value;
+    } 
+    else if (temperaturaMagazzino && temperaturaMagazzino.value === "magazzinoFreddo") {
+        nuovoPreventivo.temperaturaMagazzino = document.getElementById("temperatura").value;
+        nuovoPreventivo.condensaMagazzino = condensaMagazzino?.value || "";
+    }
+
+    let portataMinima = document.getElementById("portataMinima").value;
+    nuovoPreventivo.portataMinima = portataMinima;
+
+    let portataRichiesta = document.getElementById("pesoRichiesto").value;
+    nuovoPreventivo.portataRichiesta = portataRichiesta;
+
+    if(document.getElementById("doghe").checked) {
+        let  doghe = document.getElementById("doghe").value;
+
+        nuovoPreventivo.doghe = doghe;
+    }
+
+    if(document.getElementById("legno").checked) {
+        let  legno = document.getElementById("legno").value;
+
+        nuovoPreventivo.legno = legno;
+    }
+
+    if(document.getElementById("grecataLegno").checked) {
+        let  grecataLegno = document.getElementById("grecataLegno").value;
+
+        nuovoPreventivo.doghe = grecataLegno;
+    }
+    
+    if(document.getElementById("grecataCLSAlleggerito").checked) {
+        let  grecataCLSAlleggerito = document.getElementById("grecataCLSAlleggerito").value;
+
+        nuovoPreventivo.doghe = grecataCLSAlleggerito;
+    }
+
+    let pesoPavimento = document.getElementById("pesoPavimento").value;
+    nuovoPreventivo.pesoPavimento = pesoPavimento;
+
+    let finitura = document.querySelector('input[name="finitura"]:checked');
+
+    if (finitura && finitura.value === "finituraColore") {
+        let colore = document.getElementById("colore-select").value;
+
+        if (colore === "Colore Speciale a Scelta") {
+            colore = document.getElementById("colore-speciale").value;
+        }
+
+        nuovoPreventivo.finitura = colore;
+    }
+    else if (finitura && finitura.value === "finituraZincatura") {
+        let zincatura = document.querySelector('input[name="zincatura"]:checked')?.value || "";
+        nuovoPreventivo.finitura = zincatura;
+    }
+
+    if(document.getElementById("relazioneCalcolo").checked) {
+        let relazioneCalcolo = document.getElementById("relazioneCalcolo").value;
+
+        nuovoPreventivo.relazioneCalcolo = relazioneCalcolo;
+    }
+
+    if(document.getElementById("certificazioneMateriali").checked) {
+        let certificazioneMateriali = document.getElementById("certificazioneMateriali").value;
+
+        nuovoPreventivo.certificazioneMateriali = certificazioneMateriali;
+    }
+
+    if(document.getElementById("provini").checked) {
+        let  provini = document.getElementById("provini").value;
+
+        nuovoPreventivo.provini = provini;
+    }
+
+    if(document.getElementById("dichiarazioneConformita").checked) {
+        let dichiarazioneConformita = document.getElementById("dichiarazioneConformita").value;
+
+        nuovoPreventivo.dichiarazioneConformita = dichiarazioneConformita;
+    }
+
+    arrayGL8.push(nuovoPreventivo);
+    console.log(arrayGL8);
+    alert("Modulo Registrato");
+    document.getElementById("form").reset();
+    document.getElementById("hidden-pavimento").style.display = "none";
+    document.getElementById("hidden-solaio").style.display = "none";
+    document.getElementById("hidden-temperatura").style.display = "none";
+    document.getElementById("hidden-sceltaColore").style.display = "none";
+    document.getElementById("hidden-specialeColore").style.display = "none";
+    document.getElementById("hidden-zincatura").style.display = "none";
+}

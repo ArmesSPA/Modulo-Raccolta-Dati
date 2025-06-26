@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GL8</title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./styleGL8.css">
+        <link rel="icon" href="../../Immagini/ICONA/Armes_logo_ICONA.png">
+    </head>
+
+    <body>
+
+        <form onsubmit="aggiungiPreventivo(event)" id="form">
+
+            <a href="./../../index.html">Indietro</a>
+
+            <div class="img-container">
+                <img src="./../../Immagini/logo-armes-dark.svg">
+            </div>
+            
+            <h1>Inserisci dati del preventivo GL8</h1>
+
+            <h3>Informazioni Generali</h3>
+
+            <div class="data-container">
+                <h4>Data</h4>
+                <label id="data">
+
+                </label>
+            </div>
+
+            <div class="form-row">
+                <h4>Numero Preventivo</h4>
+                <input type="text" name="numeroPreventivo" id="numeroPreventivo" placeholder="es. 25Q_01345">
+            </div>   
+
+            <div class="form-row">
+                <h4>Cliente</h4>
+                <input type="text" name="cliente" id="cliente" placeholder="Nome Cliente">
+            </div>
+
+            <div class="form-row">
+                <h4>Normativa</h4>
+                <input type="text" id="normativa" name="normativa" readonly>
+            </div>
+
+            <!-- Input: Inserimento indirizzo -->
+            <div class="form-row">
+                <h4 for="via">Indirizzo:</h4>
+                <input type="text" name="via" id="via" placeholder="es. Via Roma 12">
+            </div>
+
+            <div class="form-row">
+                <h4 for="citta">Città:</h4>
+                <input type="text" name="citta" id="citta" placeholder="es. Milano">
+            </div>
+
+            <div class="form-row">
+                <h4 for="paese">Paese:</h4>
+                <input type="text" name="paese" id="paese" placeholder="es. Italia">
+            </div>
+
+            <div class="button-container">
+                <button type="button" id="button"onclick="cercaIndirizzo()">Cerca</button>
+            </div>
+
+            <div id="loader" style="display:none;">
+                Caricamento in corso...
+            </div>
+
+            <!-- Output: Dati trovati -->
+            <div class="form-row">
+                <h4 for="cap">CAP:</h4>
+                <input type="text" name="cap" id="cap" readonly>
+            </div>
+
+            <div class="form-row">
+                <h4 for="provincia">Provincia:</h4>
+                <input type="text" name="provincia" id="provincia" readonly>
+            </div>
+
+            <div class="form-row">
+                <h4 for="lat">Latitudine:</h4>
+                <input type="text" name="lat" id="lat" readonly>
+            </div>
+
+            <div class="form-row">
+                <h4 for="lon">Longitudine:</h4>
+                <input type="text" name="lon" id="lon" readonly>
+            </div>
+
+
+            <h3>Parametri Sismici</h3>
+
+            <div class="form-row">
+                <h4>Posizione del Soppalco</h4>
+                <label>
+                    <input type="radio" name="posizione-scaffalatura" value="Su Pavimento">
+                    Su Pavimento a Terra
+                </label>
+
+                <label>
+                    <input type="radio" name="posizione-scaffalatura" value="Su Solaio">
+                    Su Solaio
+                </label>
+            </div>
+
+            <div class="form-row" id="hidden-pavimento"> <!--Da far comparire-->
+                <input type="text" name="spessore" id="spessore" placeholder="Inserisci Spessore (mm)">
+                <input type="text" name="qualitaCalcestruzzo" id="qualitaCalcestruzzo" placeholder="Qualità Calcestruzzo (Rck)">
+            </div>
+
+            <div class="form-row" id="hidden-solaio"> <!--Da far comparire-->
+                <input type="number" name="altezzaEdificio" id="altezzaEdificio" placeholder="Altezza Edificio (m)">
+                <input type="number" name="quotaEstrodosso" id="quotaEstrodosso" placeholder="Quota Estrodosso (m)">
+                <input type="text" name="spessore" id="spessore" placeholder="Inserisci Spessore (mm)">
+                <input type="text" name="qualitaCalcestruzzo" id="qualitaCalcestruzzo" placeholder="Qualità Calcestruzzo (Rck)">
+            </div>
+
+            <div class="form-row">
+                <h4>Distanza Minima da Elementi Strutturali (mm)</h4>
+                <input type="text" name="distanzaElementi" id="distanzaElementi">
+            </div>
+
+            <div class="form-row">
+                <h4>Distanza da Bordo Soletta (mm)</h4>
+                <input type="text" name="distanzaSoletta" id="distanzaSoletta">
+            </div>
+
+            <div class="form-row">
+                <h4>Vita del Soppalco</h4>
+                <input type="text" name="vita-soppalco" id="vita-soppalco" readonly>
+            </div>
+
+            <div class="form-row">
+                <h4>Classe d'uso</h4>
+                <select name="classeUso" id="classeUso">
+                    <option value="I : Con Presenza Occasionale di Persone">I : Con Presenza Occasionale di Persone</option>
+                    <option value="II : Prevede Normali Affollamenti e Senza Contenuti Pericolosi">II : Prevede Normali Affollamenti e Senza Contenuti Pericolosi</option>
+                    <option value="III : Prevede Significativi Affollamenti e con Contenuti Pericolosi">III : Prevede Significativi Affollamenti e con Contenuti Pericolosi</option>
+                    <option value="IV : Con Funzioni Pubbliche o Attività Pericolose">IV : Con Funzioni Pubbliche o Attività Pericolose</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <h4>Categoria di Sottosuolo</h4>
+                <select name="sottosuolo" id="sottosuolo">
+                    <option value="A : Con Terreni Molto Rigidi">A : Con Terreni Molto Rigidi</option>
+                    <option value="B : Depositi di Terreni Molto Addensati">B : Depositi di Terreni Molto Addensati</option>
+                    <option value="C : Depositi di Terreni Mediamente Addensati">B : Depositi di Terreni Mediamente Addensati</option>
+                    <option value="D : Depositi di Terreni Scarsamente Addensati">D : Depositi di Terreni Scarsamente Addensati</option>
+                    <option value="E : Terreni di Tipo C e D per spessore inferiore a 20m">E : Terreni di Tipo C e D per spessore inferiore a 20m</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <h4>Categoria Topografica</h4>
+                <select name="topografica" id="topografica">
+                    <option value="T1 : Superficie con Inclinazione Media i < 15°">T1 : Superficie  con Inclinazione Media i < 15°</option>
+                    <option value="T2 : Pendii con Inclinazione Media i > 15°">T2 : Pendii con Inclinazione Media i > 15°</option>
+                    <option value="T3 : Rilievi con Inlinazione Media tra i 15° e 30°">T3 : Rilievi con Inlinazione Media tra i 15° e 30°</option>
+                    <option value="T4 : Rilievi con inclinazione media i > 30°">T4 : Rilievi con inclinazione media i > 30°</option>
+                </select>
+            </div>
+
+            <h3>Portata Soppalco</h3>
+
+            <div class="form-row">
+                <h4>Temperatura Magazzino</h4>
+                <label>
+                    <input type="radio" name="magazzino" value="magazzinoAmbiente">
+                    Ambiente
+                </label>
+
+                <label>
+                    <input type="radio" name="magazzino" value="magazzinoFreddo">
+                    Freddo
+                </label>
+            </div>
+
+            <div class="form-row" id="hidden-temperatura"> <!--Da fare comparire-->
+                <input type="number" name="temperatura" id="temperatura" placeholder="Inserire Temperatura (C°)">
+
+                <h4>Dichiarare Presenza di Condensa</h4>
+
+                <label>
+                    <input type="radio" name="condensa" value="condensaSi">
+                    Si
+                </label>
+
+                <label>
+                    <input type="radio" name="condensa" value="condensaNo">
+                    No
+                </label>
+            </div>
+
+            <div class="same-row">
+                <h3>Portata Soppalco</h3>
+                <a href="./Tabella.html">Tabella</a>
+            </div>
+            
+            <div class="form-row">
+                <h4>Portata Minima Soppalco (in kg/m²)</h4>
+                <select name="portataMinima" id="portataMinima">
+                    <option value="50 kg/m²">50 kg/m²</option>
+                    <option value="200 kg/m²">200 kg/m²</option>
+                    <option value="250 kg/m²">250 kg/m²</option>
+                    <option value="300 kg/m²">300 kg/m²</option>
+                    <option value="400 kg/m²">400 kg/m²</option>
+                    <option value="500 kg/m²">500 kg/m²</option>
+                    <option value="600 kg/m²">600 kg/m²</option>
+                    <option value="min 600 kg/m²">min 600 kg/m²</option>
+                    <option value="Da Valutare Caso per Caso kg/m²">Da Valutare Caso per Caso kg/m²</option>
+                    <option value="Secondo Cat. di Appartenenza">Secondo Cat. di Appartenenza</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <h4>Portata richiesta dal cliente (in kg/m²)</h4>
+                <input type="number" name="peso" id="pesoRichiesto" placeholder="es. 1000">
+            </div>
+
+            <div class="form-row"> <!--Forse è da sistemare-->
+                <h4>Tipologia di Pavimento del Soppalco</h4>
+
+                <label>
+                    <input type="checkbox" name="doghe" value="doghe" id="doghe">
+                    Doghe
+                </label>
+
+                <label>
+                    <input type="checkbox" name="legno" value="legno" id="legno">
+                    Legno
+                </label>
+
+                <label>
+                    <input type="checkbox" name="grecataLegno" value="grecataLegno" id="grecataLegno">
+                    Grecata e Legno
+                </label>
+
+                <label>
+                    <input type="checkbox" name="grecataCLSAlleggerito" value="grecataCLSAlleggerito" id="grecataCLSAlleggerito">
+                    Grecata e CLS Alleggerito
+                </label>
+            </div>
+
+            <div class="form-row">
+                <h4>Peso Pavimento Soppalco (in kg/m²)</h4>
+                <input type="text" name="peso" id="pesoPavimento" placeholder="es. 300kg/m²">               
+            </div>
+
+           <h3>Finiture</h3>
+
+            <div class="form-row">
+                <h4>Colori o Zincature Speciali</h4>
+                
+                <label>
+                    <input type="radio" name="finitura" value="finituraColore">
+                    Colore
+                </label>
+
+                <label>
+                    <input type="radio" name="finitura" value="finituraZincatura">
+                    Zincatura
+                </label>
+                
+            </div>
+
+            <div class="form-row" id="hidden-sceltaColore">
+                <select name="colore" id="colore-select">
+                    <option value="Blu (RAL 5010)">Blu (RAL 5010)</option>
+                    <option value="Grigio scuro (RAL 7016)">Grigio scuro (RAL 7016)</option>
+                    <option value="Giallo (RAL 1007)">Giallo (RAL 1007)</option>
+                    <option value="Grigio chiaro (RAL 7035)">Grigio chiaro (RAL 7035)</option>
+                    <option value="Colore Speciale a Scelta">Colore Speciale a Scelta</option>
+                </select>
+            </div>
+
+            <div class="form-row" id="hidden-specialeColore">
+                <input type="text" name="colore-speciale" id="colore-speciale" placeholder="Inserire Colore Speciale">
+            </div>
+
+            <div class="form-row" id="hidden-zincatura">
+                <label>
+                    <input type="radio" name="zincatura" value="zincatura">
+                    Zincatura a Caldo
+                </label>
+
+                <label>
+                    <input type="radio" name="zincatura" value="zincatura">
+                    Zincatura Sendzimir
+                </label>
+            </div>
+
+            <h3>Documentazione Richiesta</h3>
+
+            <div class="form-row">
+
+                <label>
+                    <input type="checkbox" name="relazioneCalcolo" value="relazioneCalcolo" id="relazioneCalcolo">
+                    Relazione di Calcolo
+                </label>
+
+                <label>
+                    <input type="checkbox" name="certificazioneMateriali" value="certificazioneMateriali" id="certificazioneMateriali">
+                    Certificazione Materiali
+                </label>
+
+                <label>
+                    <input type="checkbox" name="provini" value="provini" id="provini">
+                    Provini
+                </label>
+
+                <label>
+                    <input type="checkbox" name="dichiarazioneConformita" value="dichiarazioneConformita" id="dichiarazioneConformita">
+                    Dichiarazione Conformità
+                </label>
+            </div>
+
+            <div class="button-container">
+                <button type="submit">Invia</button>
+            </div>
+
+        </form>
+        
+    </body>
+
+    <script src="./scriptGL8.js"></script>
+
+</html>
