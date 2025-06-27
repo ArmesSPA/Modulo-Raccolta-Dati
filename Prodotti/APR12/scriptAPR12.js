@@ -341,6 +341,8 @@ function aggiungiPreventivo(event) {
     .then(res => res.text())
     .then(data => console.log(data))
     .catch(err => console.error(err));
+
+    console.log(JSON.stringify(arrayAPR12[0]));
 }
 
 //Da qui in poi c'è il collegamento al google sheet (va fatto per tutti i siti)
