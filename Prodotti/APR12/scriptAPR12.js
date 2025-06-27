@@ -256,10 +256,11 @@ function aggiungiPreventivo(event) {
     nuovoPreventivo.topografica = topografica;
 
     if(temperaturaMagazzino && temperaturaMagazzino.value === "magazzinoAmbiente") {
-        nuovoPreventivo.temperaturaMagazzino = document.getElementById("temperatura").value;
+        nuovoPreventivo.temperaturaMagazzino = "Ambiente";
     } 
     else if (temperaturaMagazzino && temperaturaMagazzino.value === "magazzinoFreddo") {
-        nuovoPreventivo.temperaturaMagazzino = document.getElementById("temperatura").value;
+        nuovoPreventivo.temperaturaMagazzino = "Freddo";
+        nuovoPreventivo.temperaturaMagazzinoFreddo = document.getElementById("temperatura").value;
         nuovoPreventivo.condensaMagazzino = condensaMagazzino?.value || "";
     }
 
@@ -364,16 +365,20 @@ form.addEventListener("submit", function (event) {
     .then((data) => alert("✅ Inviato: " + arrayAPR12))
     .catch((err) => alert("❌ Errore: " + err));*/
 
+    const formData = new FormData(form); // questo crea i dati in formato compatibile
     fetch("https://script.google.com/macros/s/AKfycbxrVxuiSRrsevbSXW9xx-tfiNuLUyqBc7tX3KzZ1ZJRrgtauUZ3zkSYMJGzFfQMk5C0/exec", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(datiTest)
+        body: formData, // usa direttamente FormData, NON JSON.stringify
     })
-        .then(res => res.text())
-        .then(text => console.log("✅ Risposta dal server:", text))
-        .catch(err => console.error("❌ Errore:", err));
-
+    .then(res => res.text())
+    .then(data => {
+        console.log("✅ Risposta dal server:", data);
+        alert(data);
+    })
+    .catch(err => {
+        console.error("❌ Errore:", err);
+        alert("❌ Errore nella richiesta");
+    });
 });
+
 
