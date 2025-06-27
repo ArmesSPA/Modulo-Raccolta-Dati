@@ -352,10 +352,11 @@ const datiTest = {
 };
 
 
+
 form.addEventListener("submit", function (event) {
   event.preventDefault();
-
-  /*arrayAPR12.tipo = "APR12";
+    /*
+  /----arrayAPR12.tipo = "APR12";
   fetch("URL_API_GOOGLE_SCRIPT", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -363,7 +364,7 @@ form.addEventListener("submit", function (event) {
   })
     .then((res) => res.text())
     .then((data) => alert("✅ Inviato: " + arrayAPR12))
-    .catch((err) => alert("❌ Errore: " + err));*/
+    .catch((err) => alert("❌ Errore: " + err)); -----/
 
     const dati = {
     tipo: "APR12",
@@ -395,7 +396,21 @@ form.addEventListener("submit", function (event) {
     .catch(err => {
       console.error("❌ Errore:", err);
       alert("❌ Errore nella richiesta");
-    });
+    });*/
+
+    fetch("https://script.google.com/macros/s/AKfycbxrVxuiSRrsevbSXW9xx-tfiNuLUyqBc7tX3KzZ1ZJRrgtauUZ3zkSYMJGzFfQMk5C0/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            tipo: "APR12",
+            cliente: "Mario Rossi",
+            lat: "45.4642",
+            lon: "9.1900",
+            cap: "20100"
+        })
+    })
+    .then(res => res.text())
+    .then(data => console.log(data))
+    .catch(err => console.error(err));
+
 });
-
-
