@@ -337,7 +337,7 @@ function aggiungiPreventivo(event) {
 const form = document.getElementById("form");
 
 const datiTest = {
-  tipo: "APR12",
+  tipo: "GL8",
   data: new Date().toISOString(),
   cliente: "Mario Rossi",
   via: "Via Roma 1",
