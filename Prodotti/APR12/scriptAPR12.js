@@ -331,6 +331,10 @@ function aggiungiPreventivo(event) {
     document.getElementById("hidden-specialeColore").style.display = "none";
     document.getElementById("hidden-zincatura").style.display = "none";
 
+    const ultimo = arrayAPR12[arrayAPR12.length - 1];
+    console.log("🚀 Invio JSONP:", ultimo);
+    sendPreventivo(ultimo);
+
 }
 
 // ———————————————————————————————
