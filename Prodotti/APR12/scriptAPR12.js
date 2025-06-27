@@ -180,6 +180,7 @@ function aggiungiPreventivo(event) {
     event.preventDefault();
 
     let numeroPreventivo = document.getElementById("numeroPreventivo").value;
+    let nomeCommerciante = document.getElementById("nomeCommerciante").value;
     let cliente = document.getElementById("cliente").value;
     let normativa = document.getElementById("normativa").value;
     let posizioneScaffalatura = document.querySelector('input[name="posizione-scaffalatura"]:checked')?.value || "";
@@ -193,6 +194,7 @@ function aggiungiPreventivo(event) {
 
     let nuovoPreventivo = ({
         numeroPreventivo : numeroPreventivo,
+        nomeCommerciante : nomeCommerciante,
         cliente : cliente,
         data : dataLocale,
         normativa : normativa,
@@ -325,3 +327,22 @@ function aggiungiPreventivo(event) {
     document.getElementById("hidden-specialeColore").style.display = "none";
     document.getElementById("hidden-zincatura").style.display = "none";
 }
+
+//Da qui in poi c'è il collegamento al google sheet (va fatto per tutti i siti)
+
+const form = document.getElementById("form");
+
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  arrayAPR12.tipo = "APR12";
+  fetch("URL_API_GOOGLE_SCRIPT", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(arrayAPR12)
+  })
+    .then((res) => res.text())
+    .then((data) => alert("✅ Inviato: " + arrayAPR12))
+    .catch((err) => alert("❌ Errore: " + err));
+});
+

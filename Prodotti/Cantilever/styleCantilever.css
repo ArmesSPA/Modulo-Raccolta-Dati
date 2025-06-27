@@ -150,6 +150,7 @@ select:focus {
 .data-container {
     display: flex;
     align-items: center;
+    margin-left: 9px;
 }
 
 /*
@@ -178,4 +179,19 @@ select:focus {
   background-color: #ff7300;
   transform: scale(1.03);
   box-shadow: 0 4px 8px rgba(255, 115, 0, 0.4);
+}
+
+#radio-group {
+    display: flex;
+}
+
+#radio-group label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#radio-group input[type="radio"] {
+    margin-bottom: 5px;
+    margin-right: 8px;
 }

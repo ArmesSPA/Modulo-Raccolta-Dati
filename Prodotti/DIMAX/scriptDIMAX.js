@@ -183,6 +183,7 @@ function aggiungiPreventivo(event) {
     event.preventDefault();
 
     let numeroPreventivo = document.getElementById("numeroPreventivo").value;
+    let nomeCommerciante = document.getElementById("nomeCommerciante").value;
     let cliente = document.getElementById("cliente").value;
     let normativa = document.getElementById("normativa").value;
     //let indirizzo = document.getElementById("indirizzo").value;
@@ -197,6 +198,7 @@ function aggiungiPreventivo(event) {
 
     let nuovoPreventivo = ({
         numeroPreventivo : numeroPreventivo,
+        nomeCommerciante : nomeCommerciante,
         cliente : cliente,
         data : dataLocale,
         normativa : normativa,
