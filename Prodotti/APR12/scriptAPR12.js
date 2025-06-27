@@ -331,36 +331,28 @@ function aggiungiPreventivo(event) {
     document.getElementById("hidden-specialeColore").style.display = "none";
     document.getElementById("hidden-zincatura").style.display = "none";
 
-    // Costruisci il tuo oggetto dati come prima...
-    const ultimoPreventivo = { /* … tutti i tuoi campi … */ };
-
-    console.log("Dati da inviare:", JSON.stringify(ultimoPreventivo));
-
-    fetch('/api/proxy', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(ultimoPreventivo),
-    })
-        .then(res => res.json())
-        .then(data => {
-            console.log("Risposta dal proxy:", data);
-            alert(data.status === 'successo'
-                ? "🟢 Dati salvati!"
-                : "🔴 Errore: " + data.error);
-        })
-        .catch(err => console.error("Fetch failed:", err));
-
-
 }
-//Da qui in poi c'è il collegamento al google sheet (va fatto per tutti i siti)
-/*
-const form = document.getElementById("form");
 
-form.addEventListener("submit", function (event) {
-  event.preventDefault();
-    
-  
+// ———————————————————————————————
+// CALLBACK JSONP (globale)
+// ———————————————————————————————
+function callbackSuccess(response) {
+  console.log("Risposta JSONP:", response);
+  alert(response.status === "successo"
+    ? "🟢 Dati salvati!"
+    : "🔴 Errore: " + response.error);
+}
 
+// ———————————————————————————————
+// INVIO JSONP (globale)
+// ———————————————————————————————
+function sendPreventivo(data) {
+  const callbackName = "callbackSuccess";
+  const url = new URL("https://script.google.com/macros/s/AKfycbxrVxuiSRrsevbSXW9xx-tfiNuLUyqBc7tX3KzZ1ZJRrgtauUZ3zkSYMJGzFfQMk5C0/exec");
+  url.searchParams.set("callback", callbackName);
+  url.searchParams.set("dati", JSON.stringify(data));
 
-});
-*/
+  const script = document.createElement("script");
+  script.src = url.toString();
+  document.body.appendChild(script);
+}
