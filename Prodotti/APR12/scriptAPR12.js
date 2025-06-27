@@ -365,19 +365,36 @@ form.addEventListener("submit", function (event) {
     .then((data) => alert("✅ Inviato: " + arrayAPR12))
     .catch((err) => alert("❌ Errore: " + err));*/
 
-    const formData = new FormData(form); // questo crea i dati in formato compatibile
-    fetch("https://script.google.com/macros/s/AKfycbxrVxuiSRrsevbSXW9xx-tfiNuLUyqBc7tX3KzZ1ZJRrgtauUZ3zkSYMJGzFfQMk5C0/exec", {
-        method: "POST",
-        body: formData, // usa direttamente FormData, NON JSON.stringify
-    })
+    const dati = {
+    tipo: "APR12",
+    data: new Date().toISOString(),
+    cliente: document.getElementById("cliente")?.value || "",
+    via: document.getElementById("via")?.value || "",
+    citta: document.getElementById("citta")?.value || "",
+    cap: document.getElementById("cap")?.value || "",
+    provincia: document.getElementById("provincia")?.value || "",
+    paese: document.getElementById("paese")?.value || "",
+    lat: document.getElementById("lat")?.value || "",
+    lon: document.getElementById("lon")?.value || "",
+    spessore: document.getElementById("spessore")?.value || "",
+    qualitaCalcestruzzo: document.getElementById("qualitaCalcestruzzo")?.value || ""
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbxrVxuiSRrsevbSXW9xx-tfiNuLUyqBc7tX3KzZ1ZJRrgtauUZ3zkSYMJGzFfQMk5C0/exec", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(dati)
+  })
     .then(res => res.text())
     .then(data => {
-        console.log("✅ Risposta dal server:", data);
-        alert(data);
+      console.log("✅ Risposta dal server:", data);
+      alert(data);
     })
     .catch(err => {
-        console.error("❌ Errore:", err);
-        alert("❌ Errore nella richiesta");
+      console.error("❌ Errore:", err);
+      alert("❌ Errore nella richiesta");
     });
 });
 
