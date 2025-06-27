@@ -336,7 +336,7 @@ function aggiungiPreventivo(event) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(arrayAPR12),
+        body: JSON.stringify(arrayAPR12[0]),
     })
     .then(res => res.text())
     .then(data => console.log(data))
