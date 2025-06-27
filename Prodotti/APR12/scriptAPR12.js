@@ -398,19 +398,16 @@ form.addEventListener("submit", function (event) {
       alert("❌ Errore nella richiesta");
     });*/
 
-    fetch("https://script.google.com/macros/s/AKfycbxrVxuiSRrsevbSXW9xx-tfiNuLUyqBc7tX3KzZ1ZJRrgtauUZ3zkSYMJGzFfQMk5C0/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            tipo: "APR12",
-            cliente: "Mario Rossi",
-            lat: "45.4642",
-            lon: "9.1900",
-            cap: "20100"
-        })
+    fetch('/api/proxy', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(datiTest),
     })
     .then(res => res.text())
     .then(data => console.log(data))
     .catch(err => console.error(err));
+
 
 });
