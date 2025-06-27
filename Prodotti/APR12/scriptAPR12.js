@@ -364,7 +364,7 @@ form.addEventListener("submit", function (event) {
     .then((data) => alert("✅ Inviato: " + arrayAPR12))
     .catch((err) => alert("❌ Errore: " + err));*/
 
-    fetch("AKfycbxrVxuiSRrsevbSXW9xx-tfiNuLUyqBc7tX3KzZ1ZJRrgtauUZ3zkSYMJGzFfQMk5C0", {
+    fetch("https://script.google.com/macros/s/AKfycbxrVxuiSRrsevbSXW9xx-tfiNuLUyqBc7tX3KzZ1ZJRrgtauUZ3zkSYMJGzFfQMk5C0/exec", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
