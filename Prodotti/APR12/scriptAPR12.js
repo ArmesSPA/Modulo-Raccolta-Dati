@@ -341,9 +341,10 @@ function aggiungiPreventivo(event) {
         },
         body: JSON.stringify(ultimoPreventivo),
     })
-    .then(res => res.text())
-    .then(data => console.log(data))
+    .then(res => res.json())
+    .then(data => console.log("Risposta:", data))
     .catch(err => console.error(err));
+
 }
 
 //Da qui in poi c'è il collegamento al google sheet (va fatto per tutti i siti)
