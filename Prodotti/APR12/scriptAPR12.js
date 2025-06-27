@@ -397,6 +397,7 @@ form.addEventListener("submit", function (event) {
       console.error("❌ Errore:", err);
       alert("❌ Errore nella richiesta");
     });*/
+    
 
     fetch('/api/proxy', {
         method: 'POST',
