@@ -330,85 +330,28 @@ function aggiungiPreventivo(event) {
     document.getElementById("hidden-sceltaColore").style.display = "none";
     document.getElementById("hidden-specialeColore").style.display = "none";
     document.getElementById("hidden-zincatura").style.display = "none";
-}
-
-//Da qui in poi c'è il collegamento al google sheet (va fatto per tutti i siti)
-
-const form = document.getElementById("form");
-
-const datiTest = {
-  tipo: "GL8",
-  data: new Date().toISOString(),
-  cliente: "Mario Rossi",
-  via: "Via Roma 1",
-  citta: "Milano",
-  cap: "20100",
-  provincia: "MI",
-  paese: "Italia",
-  lat: "45.4642",
-  lon: "9.1900",
-  spessore: "200",
-  qualitaCalcestruzzo: "C25/30"
-};
-
-
-
-form.addEventListener("submit", function (event) {
-  event.preventDefault();
-    /*
-  /----arrayAPR12.tipo = "APR12";
-  fetch("URL_API_GOOGLE_SCRIPT", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(arrayAPR12)
-  })
-    .then((res) => res.text())
-    .then((data) => alert("✅ Inviato: " + arrayAPR12))
-    .catch((err) => alert("❌ Errore: " + err)); -----/
-
-    const dati = {
-    tipo: "APR12",
-    data: new Date().toISOString(),
-    cliente: document.getElementById("cliente")?.value || "",
-    via: document.getElementById("via")?.value || "",
-    citta: document.getElementById("citta")?.value || "",
-    cap: document.getElementById("cap")?.value || "",
-    provincia: document.getElementById("provincia")?.value || "",
-    paese: document.getElementById("paese")?.value || "",
-    lat: document.getElementById("lat")?.value || "",
-    lon: document.getElementById("lon")?.value || "",
-    spessore: document.getElementById("spessore")?.value || "",
-    qualitaCalcestruzzo: document.getElementById("qualitaCalcestruzzo")?.value || ""
-  };
-
-  fetch("https://script.google.com/macros/s/AKfycbxrVxuiSRrsevbSXW9xx-tfiNuLUyqBc7tX3KzZ1ZJRrgtauUZ3zkSYMJGzFfQMk5C0/exec", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(dati)
-  })
-    .then(res => res.text())
-    .then(data => {
-      console.log("✅ Risposta dal server:", data);
-      alert(data);
-    })
-    .catch(err => {
-      console.error("❌ Errore:", err);
-      alert("❌ Errore nella richiesta");
-    });*/
-    
 
     fetch('/api/proxy', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(datiTest),
+        body: JSON.stringify(arrayAPR12),
     })
     .then(res => res.text())
     .then(data => console.log(data))
     .catch(err => console.error(err));
+}
+
+//Da qui in poi c'è il collegamento al google sheet (va fatto per tutti i siti)
+/*
+const form = document.getElementById("form");
+
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+    
+  
 
 
 });
+*/
