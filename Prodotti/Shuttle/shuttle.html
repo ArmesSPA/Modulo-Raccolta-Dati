@@ -31,6 +31,11 @@
             </div>
 
             <div class="form-row">
+                <h4>Compilato Da</h4>
+                <input type="text" name="nomeCommerciante" id="nomeCommerciante">
+            </div>
+
+            <div class="form-row">
                 <h4>Numero Preventivo</h4>
                 <input type="text" name="numeroPreventivo" id="numeroPreventivo" placeholder="es. 25Q_01345">
             </div>   
@@ -38,11 +43,6 @@
             <div class="form-row">
                 <h4>Cliente</h4>
                 <input type="text" name="cliente" id="cliente" placeholder="Nome Cliente">
-            </div>
-
-            <div class="form-row">
-                <h4>Compilato Da</h4>
-                <input type="text" name="nomeCommerciante" id="nomeCommerciante">
             </div>
 
             <div class="form-row">
@@ -112,15 +112,15 @@
             </div>
 
             <div class="form-row" id="hidden-pavimento"> <!--Da far comparire-->
-                <input type="text" name="spessore" id="spessore" placeholder="Inserisci Spessore (mm)">
-                <input type="text" name="qualitaCalcestruzzo" id="qualitaCalcestruzzo" placeholder="Qualità Calcestruzzo (Rck)">
+                <input type="text" name="spessore" id="spessore-pavimento" placeholder="Inserisci Spessore (mm)">
+                <input type="text" name="qualitaCalcestruzzo" id="qualitaCalcestruzzo-pavimento" placeholder="Qualità Calcestruzzo (Rck)">
             </div>
 
             <div class="form-row" id="hidden-solaio"> <!--Da far comparire-->
                 <input type="number" name="altezzaEdificio" id="altezzaEdificio" placeholder="Altezza Edificio (m)">
                 <input type="number" name="quotaEstrodosso" id="quotaEstrodosso" placeholder="Quota Estrodosso (m)">
-                <input type="text" name="spessore" id="spessore" placeholder="Inserisci Spessore (mm)">
-                <input type="text" name="qualitaCalcestruzzo" id="qualitaCalcestruzzo" placeholder="Qualità Calcestruzzo (Rck)">
+                <input type="text" name="spessore" id="spessore-solaio" placeholder="Inserisci Spessore (mm)">
+                <input type="text" name="qualitaCalcestruzzo" id="qualitaCalcestruzzo-solaio" placeholder="Qualità Calcestruzzo (Rck)">
             </div>
 
             <div class="form-row">
@@ -271,12 +271,12 @@
 
             <div class="form-row" id="hidden-zincatura">
                 <label>
-                    <input type="radio" name="zincatura" value="zincatura">
+                    <input type="radio" name="zincatura" value="zincaturaCaldo">
                     Zincatura a Caldo
                 </label>
 
                 <label>
-                    <input type="radio" name="zincatura" value="zincatura">
+                    <input type="radio" name="zincatura" value="zincaturaSendzimir">
                     Zincatura Sendzimir
                 </label>
             </div>

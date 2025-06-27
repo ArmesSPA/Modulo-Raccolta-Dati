@@ -213,7 +213,7 @@ function aggiungiPreventivo(event) {
         let qualitaCalcestruzzo = document.getElementById("qualitaCalcestruzzo-pavimento").value;
 
         nuovoPreventivo.spessore = document.getElementById("spessore-pavimento").value;
-        nuovoPreventivo.qualitaCalcestruzzo = document.getElementById("qualitaCalcestruzzo-pavimento").value;
+        nuovoPreventivo.qualitaCalcestruzzo = document.getElementById("qualitaCalcestruzzo-pavimento").value;     
     }
     else if (posizioneScaffalatura === "Su Solaio") {
         let spessore = document.getElementById("spessore-solaio").value;
@@ -284,11 +284,14 @@ function aggiungiPreventivo(event) {
             colore = document.getElementById("colore-speciale").value;
         }
 
-        nuovoPreventivo.finitura = colore;
+        nuovoPreventivo.finitura = "Colore"
+        nuovoPreventivo.colore = colore;
     }
     else if (finitura && finitura.value === "finituraZincatura") {
         let zincatura = document.querySelector('input[name="zincatura"]:checked')?.value || "";
-        nuovoPreventivo.finitura = zincatura;
+
+        nuovoPreventivo.finitura = "Zincatura"
+        nuovoPreventivo.zincatura = zincatura;
     }
 
     if(document.getElementById("relazioneCalcolo").checked) {
@@ -332,10 +335,26 @@ function aggiungiPreventivo(event) {
 
 const form = document.getElementById("form");
 
+const datiTest = {
+  tipo: "APR12",
+  data: new Date().toISOString(),
+  cliente: "Mario Rossi",
+  via: "Via Roma 1",
+  citta: "Milano",
+  cap: "20100",
+  provincia: "MI",
+  paese: "Italia",
+  lat: "45.4642",
+  lon: "9.1900",
+  spessore: "200",
+  qualitaCalcestruzzo: "C25/30"
+};
+
+
 form.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  arrayAPR12.tipo = "APR12";
+  /*arrayAPR12.tipo = "APR12";
   fetch("URL_API_GOOGLE_SCRIPT", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -343,6 +362,18 @@ form.addEventListener("submit", function (event) {
   })
     .then((res) => res.text())
     .then((data) => alert("✅ Inviato: " + arrayAPR12))
-    .catch((err) => alert("❌ Errore: " + err));
+    .catch((err) => alert("❌ Errore: " + err));*/
+
+    fetch("AKfycbxrVxuiSRrsevbSXW9xx-tfiNuLUyqBc7tX3KzZ1ZJRrgtauUZ3zkSYMJGzFfQMk5C0", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(datiTest)
+    })
+        .then(res => res.text())
+        .then(text => console.log("✅ Risposta dal server:", text))
+        .catch(err => console.error("❌ Errore:", err));
+
 });
 

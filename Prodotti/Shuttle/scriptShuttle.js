@@ -286,11 +286,14 @@ function aggiungiPreventivo(event) {
             colore = document.getElementById("colore-speciale").value;
         }
 
-        nuovoPreventivo.finitura = colore;
+        nuovoPreventivo.finitura = "Colore"
+        nuovoPreventivo.colore = colore;
     }
     else if (finitura && finitura.value === "finituraZincatura") {
         let zincatura = document.querySelector('input[name="zincatura"]:checked')?.value || "";
-        nuovoPreventivo.finitura = zincatura;
+
+        nuovoPreventivo.finitura = "Zincatura"
+        nuovoPreventivo.zincatura = zincatura;
     }
 
     if(document.getElementById("relazioneCalcolo").checked) {
