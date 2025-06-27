@@ -331,18 +331,19 @@ function aggiungiPreventivo(event) {
     document.getElementById("hidden-specialeColore").style.display = "none";
     document.getElementById("hidden-zincatura").style.display = "none";
 
+    const ultimoPreventivo = arrayAPR12[arrayAPR12.length - 1]; // 🔥 prende l'ultimo
+    console.log(JSON.stringify(ultimoPreventivo)); // ✅ debug
+
     fetch('/api/proxy', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(arrayAPR12[0]),
+        body: JSON.stringify(ultimoPreventivo),
     })
     .then(res => res.text())
     .then(data => console.log(data))
     .catch(err => console.error(err));
-
-    console.log(JSON.stringify(arrayAPR12[0]));
 }
 
 //Da qui in poi c'è il collegamento al google sheet (va fatto per tutti i siti)
