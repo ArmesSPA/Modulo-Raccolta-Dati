@@ -331,22 +331,28 @@ function aggiungiPreventivo(event) {
     document.getElementById("hidden-specialeColore").style.display = "none";
     document.getElementById("hidden-zincatura").style.display = "none";
 
-    const ultimoPreventivo = arrayAPR12[arrayAPR12.length - 1]; // 🔥 prende l'ultimo
-    console.log(JSON.stringify(ultimoPreventivo)); // ✅ debug
+    // Costruisci il tuo oggetto dati come prima...
+    const ultimoPreventivo = { /* … tutti i campi … */ };
 
-    fetch('/api/proxy', {
+    console.log("Dati da inviare:", JSON.stringify(ultimoPreventivo));
+
+    fetch('https://script.google.com/macros/s/AKfycbxrVxuiSRrsevbSXW9xx-tfiNuLUyqBc7tX3KzZ1ZJRrgtauUZ3zkSYMJGzFfQMk5C0/exec', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(ultimoPreventivo),
+        headers: { 'Content-Type': 'application/json' },
+        mode: 'cors',
+        body: JSON.stringify(ultimoPreventivo)
     })
-    .then(res => res.json())
-    .then(data => console.log("Risposta:", data))
-    .catch(err => console.error(err));
+        .then(res => res.json())
+        .then(resp => {
+            console.log("Risposta GAS:", resp);
+            alert(resp.status === 'successo' ? "Dati salvati!" : "Errore: " + resp.error);
+        })
+        .catch(err => {
+            console.error("Fetch diretto al GAS fallito:", err);
+            alert("Errore di rete: " + err);
+        });
 
 }
-
 //Da qui in poi c'è il collegamento al google sheet (va fatto per tutti i siti)
 /*
 const form = document.getElementById("form");
