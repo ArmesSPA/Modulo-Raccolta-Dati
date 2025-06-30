@@ -294,6 +294,8 @@ function aggiungiPreventivo(event) {
         nuovoPreventivo.dichiarazioneConformita = dichiarazioneConformita;
     }
 
+    nuovoPreventivo.tipo = "DIMAX"
+
     arrayDIMAX.push(nuovoPreventivo);
     console.log(arrayDIMAX);
     alert("Modulo Registrato");
