@@ -319,6 +319,8 @@ function aggiungiPreventivo(event) {
         nuovoPreventivo.dichiarazioneConformita = dichiarazioneConformita;
     }
 
+    nuovoPreventivo.tipo = "APR12";
+
     arrayAPR12.push(nuovoPreventivo);
     console.log(arrayAPR12);
     alert("Modulo Registrato");

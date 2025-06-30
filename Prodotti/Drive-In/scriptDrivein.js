@@ -258,10 +258,11 @@ function aggiungiPreventivo(event) {
     nuovoPreventivo.topografica = topografica;
 
     if(temperaturaMagazzino && temperaturaMagazzino.value === "magazzinoAmbiente") {
-        nuovoPreventivo.temperaturaMagazzino = document.getElementById("temperatura").value;
+        nuovoPreventivo.temperaturaMagazzino = "Ambiente";
     } 
     else if (temperaturaMagazzino && temperaturaMagazzino.value === "magazzinoFreddo") {
-        nuovoPreventivo.temperaturaMagazzino = document.getElementById("temperatura").value;
+        nuovoPreventivo.temperaturaMagazzino = "Freddo";
+        nuovoPreventivo.temperaturaMagazzinoFreddo = document.getElementById("temperatura").value;
         nuovoPreventivo.condensaMagazzino = condensaMagazzino?.value || "";
     }
 
