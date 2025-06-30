@@ -359,7 +359,7 @@ function aggiungiPreventivo(event) {
     document.getElementById("hidden-zincatura").style.display = "none";
 
 
-    const ultimo = arrayAPR12[arrayAPR12.length - 1];
+    const ultimo = arrayCantilever[arrayCantilever.length - 1];
     console.log("🚀 Invio JSONP:", ultimo);
     sendPreventivo(ultimo);
 
