@@ -307,7 +307,7 @@ function aggiungiPreventivo(event) {
         nuovoPreventivo.dichiarazioneConformita = "Dichiarazione Conformita";
     }
 
-    nuovoPreventivo.tipo = "DIMAX"
+    nuovoPreventivo.tipo = "DIMAX";
 
     arrayDIMAX.push(nuovoPreventivo);
     console.log(arrayDIMAX);
@@ -324,7 +324,6 @@ function aggiungiPreventivo(event) {
     const ultimo = arrayDIMAX[arrayDIMAX.length - 1];
     console.log("🚀 Invio JSONP:", ultimo);
     sendPreventivo(ultimo);
-
 }
 
 // ———————————————————————————————

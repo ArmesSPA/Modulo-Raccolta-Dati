@@ -349,7 +349,6 @@ function aggiungiPreventivo(event) {
     const ultimo = arrayAPR12[arrayAPR12.length - 1];
     console.log("🚀 Invio JSONP:", ultimo);
     sendPreventivo(ultimo);
-
 }
 
 // ———————————————————————————————

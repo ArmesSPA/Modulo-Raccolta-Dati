@@ -357,6 +357,7 @@ function aggiungiPreventivo(event) {
 
         nuovoPreventivo.dichiarazioneConformita = "Dichiarazione Conformita";
     }
+
     nuovoPreventivo.tipo = "Cantilever";
 
     arrayCantilever.push(nuovoPreventivo);
@@ -375,7 +376,6 @@ function aggiungiPreventivo(event) {
     const ultimo = arrayCantilever[arrayCantilever.length - 1];
     console.log("🚀 Invio JSONP:", ultimo);
     sendPreventivo(ultimo);
-
 }
 
 // ———————————————————————————————

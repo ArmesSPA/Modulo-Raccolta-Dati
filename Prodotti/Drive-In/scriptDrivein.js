@@ -332,6 +332,8 @@ function aggiungiPreventivo(event) {
         nuovoPreventivo.dichiarazioneConformita = "Dichiarazione Conformita";
     }
 
+    nuovoPreventivo.tipo = "Drive-In";
+
     arrayDriveIn.push(nuovoPreventivo);
     console.log(arrayDriveIn);
     alert("Modulo Registrato");
@@ -343,4 +345,32 @@ function aggiungiPreventivo(event) {
     document.getElementById("hidden-sceltaColore").style.display = "none";
     document.getElementById("hidden-specialeColore").style.display = "none";
     document.getElementById("hidden-zincatura").style.display = "none";
+
+    const ultimo = arrayDriveIn[arrayDriveIn.length - 1];
+    console.log("🚀 Invio JSONP:", ultimo);
+    sendPreventivo(ultimo);
+}
+
+// ———————————————————————————————
+// CALLBACK JSONP (globale)
+// ———————————————————————————————
+function callbackSuccess(response) {
+  console.log("Risposta JSONP:", response);
+  alert(response.status === "successo"
+    ? "🟢 Dati salvati!"
+    : "🔴 Errore: " + response.error);
+}
+
+// ———————————————————————————————
+// INVIO JSONP (globale)
+// ———————————————————————————————
+function sendPreventivo(data) {
+  const callbackName = "callbackSuccess";
+  const url = new URL("https://script.google.com/macros/s/AKfycbxrVxuiSRrsevbSXW9xx-tfiNuLUyqBc7tX3KzZ1ZJRrgtauUZ3zkSYMJGzFfQMk5C0/exec");
+  url.searchParams.set("callback", callbackName);
+  url.searchParams.set("dati", JSON.stringify(data));
+
+  const script = document.createElement("script");
+  script.src = url.toString();
+  document.body.appendChild(script);
 }
