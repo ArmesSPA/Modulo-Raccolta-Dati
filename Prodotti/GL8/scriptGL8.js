@@ -277,7 +277,7 @@ function aggiungiPreventivo(event) {
     else if (temperaturaMagazzino && temperaturaMagazzino.value === "magazzinoFreddo") {
         nuovoPreventivo.temperaturaMagazzino = "Freddo";
         nuovoPreventivo.temperaturaMagazzinoFreddo = document.getElementById("temperatura").value;
-        nuovoPreventivo.condensaMagazzino = condensaMagazzino?.value || "";
+        nuovoPreventivo.condensaMagazzino = "Condensa Si";
     }
 
     let portataMinima = document.getElementById("portataMinima").value;
@@ -326,34 +326,41 @@ function aggiungiPreventivo(event) {
         nuovoPreventivo.colore = colore;
     }
     else if (finitura && finitura.value === "finituraZincatura") {
-        let zincatura = document.querySelector('input[name="zincatura"]:checked')?.value || "";
 
         nuovoPreventivo.finitura = "Zincatura"
-        nuovoPreventivo.zincatura = zincatura;
+        let zincatura = document.querySelector('input[name="zincatura"]:checked')?.value || "";
+
+        if(zincatura === "zincaturaCaldo") {
+            nuovoPreventivo.zincatura = "Zincatura a Caldo";
+        }
+
+        if(zincatura === "zincaturaSendzimir") {
+            nuovoPreventivo.zincatura = "Zincatura Sendzimir";
+        }   
     }
 
     if(document.getElementById("relazioneCalcolo").checked) {
         let relazioneCalcolo = document.getElementById("relazioneCalcolo").value;
 
-        nuovoPreventivo.relazioneCalcolo = relazioneCalcolo;
+        nuovoPreventivo.relazioneCalcolo = "Relazione Calcolo";
     }
 
     if(document.getElementById("certificazioneMateriali").checked) {
         let certificazioneMateriali = document.getElementById("certificazioneMateriali").value;
 
-        nuovoPreventivo.certificazioneMateriali = certificazioneMateriali;
+        nuovoPreventivo.certificazioneMateriali = "Certificazione Materiali";
     }
 
     if(document.getElementById("provini").checked) {
         let  provini = document.getElementById("provini").value;
 
-        nuovoPreventivo.provini = provini;
+        nuovoPreventivo.provini = "Provini";
     }
 
     if(document.getElementById("dichiarazioneConformita").checked) {
         let dichiarazioneConformita = document.getElementById("dichiarazioneConformita").value;
 
-        nuovoPreventivo.dichiarazioneConformita = dichiarazioneConformita;
+        nuovoPreventivo.dichiarazioneConformita = "Dichiarazione Conformita";
     }
 
     arrayGL8.push(nuovoPreventivo);

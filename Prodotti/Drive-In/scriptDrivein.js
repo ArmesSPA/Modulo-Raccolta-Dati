@@ -234,12 +234,12 @@ function aggiungiPreventivo(event) {
     if(vitaNominale && vitaNominale.value === "35 anni") {
         let vitaImpianto = document.getElementById("35-anni").value;
 
-        nuovoPreventivo.vitaImpianto = vitaImpianto;
+        nuovoPreventivo.vitaImpianto = "35";
     }
     else if(vitaNominale && vitaNominale.value === "50 anni") {
         let vitaImpianto = document.getElementById("50-anni").value;
 
-        nuovoPreventivo.vitaImpianto = vitaImpianto;
+        nuovoPreventivo.vitaImpianto = "50";
     }
     else if(vitaNominale && vitaNominale.value === "Altro") {
         let vitaImpianto = document.getElementById("vitaImpianto").value;
@@ -263,7 +263,7 @@ function aggiungiPreventivo(event) {
     else if (temperaturaMagazzino && temperaturaMagazzino.value === "magazzinoFreddo") {
         nuovoPreventivo.temperaturaMagazzino = "Freddo";
         nuovoPreventivo.temperaturaMagazzinoFreddo = document.getElementById("temperatura").value;
-        nuovoPreventivo.condensaMagazzino = condensaMagazzino?.value || "";
+        nuovoPreventivo.condensaMagazzino = "Condensa Si";
     }
 
     let percentualeRiempimento = document.getElementById("percentualeRiempimento").value;
@@ -289,34 +289,41 @@ function aggiungiPreventivo(event) {
         nuovoPreventivo.colore = colore;
     }
     else if (finitura && finitura.value === "finituraZincatura") {
-        let zincatura = document.querySelector('input[name="zincatura"]:checked')?.value || "";
 
         nuovoPreventivo.finitura = "Zincatura"
-        nuovoPreventivo.zincatura = zincatura;
+        let zincatura = document.querySelector('input[name="zincatura"]:checked')?.value || "";
+
+        if(zincatura === "zincaturaCaldo") {
+            nuovoPreventivo.zincatura = "Zincatura a Caldo";
+        }
+
+        if(zincatura === "zincaturaSendzimir") {
+            nuovoPreventivo.zincatura = "Zincatura Sendzimir";
+        }   
     }
 
     if(document.getElementById("relazioneCalcolo").checked) {
         let relazioneCalcolo = document.getElementById("relazioneCalcolo").value;
 
-        nuovoPreventivo.relazioneCalcolo = relazioneCalcolo;
+        nuovoPreventivo.relazioneCalcolo = "Relazione Calcolo";
     }
 
     if(document.getElementById("certificazioneMateriali").checked) {
         let certificazioneMateriali = document.getElementById("certificazioneMateriali").value;
 
-        nuovoPreventivo.certificazioneMateriali = certificazioneMateriali;
+        nuovoPreventivo.certificazioneMateriali = "Certificazione Materiali";
     }
 
     if(document.getElementById("provini").checked) {
         let  provini = document.getElementById("provini").value;
 
-        nuovoPreventivo.provini = provini;
+        nuovoPreventivo.provini = "Provini";
     }
 
     if(document.getElementById("dichiarazioneConformita").checked) {
         let dichiarazioneConformita = document.getElementById("dichiarazioneConformita").value;
 
-        nuovoPreventivo.dichiarazioneConformita = dichiarazioneConformita;
+        nuovoPreventivo.dichiarazioneConformita = "Dichiarazione Conformita";
     }
 
     arrayDriveIn.push(nuovoPreventivo);
