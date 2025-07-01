@@ -262,7 +262,7 @@ function aggiungiPreventivo(event) {
     }
 
     let vitaNominale = document.querySelector('input[name="vita-tempo"]:checked');
-
+    
     if(vitaNominale && vitaNominale.value === "35 anni") {
         let vitaImpianto = document.getElementById("35-anni").value;
 
