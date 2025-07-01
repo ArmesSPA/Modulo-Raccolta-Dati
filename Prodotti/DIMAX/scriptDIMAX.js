@@ -343,7 +343,7 @@ function sendPreventivo(data) {
   const callbackName = "callbackSuccess";
   const url = new URL("https://script.google.com/macros/s/AKfycbxrVxuiSRrsevbSXW9xx-tfiNuLUyqBc7tX3KzZ1ZJRrgtauUZ3zkSYMJGzFfQMk5C0/exec");
   url.searchParams.set("callback", callbackName);
-  url.searchParams.set("dati", JSON.stringify(data));
+  url.searchParams.set("dati", encodeURIComponent(JSON.stringify(data)));
 
   const script = document.createElement("script");
   script.src = url.toString();
