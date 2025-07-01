@@ -261,7 +261,13 @@ function aggiungiPreventivo(event) {
     else if (temperaturaMagazzino && temperaturaMagazzino.value === "magazzinoFreddo") {
         nuovoPreventivo.temperaturaMagazzino = "Freddo";
         nuovoPreventivo.temperaturaMagazzinoFreddo = document.getElementById("temperatura").value;
-        nuovoPreventivo.condensaMagazzino = "Condensa Si";
+        if(condensaMagazzino && condensaMagazzino.value === "condensaSi") {
+            nuovoPreventivo.condensaMagazzino = "Si";
+        }
+        else if(condensaMagazzino && condensaMagazzino.value === "condensaNo") {
+            nuovoPreventivo.condensaMagazzino = "No";
+        }
+        
     }
 
     let percentualeRiempimento = document.getElementById("percentualeRiempimento").value;
