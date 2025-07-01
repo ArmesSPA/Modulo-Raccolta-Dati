@@ -193,8 +193,8 @@ function aggiungiPreventivo(event) {
     let paese = document.getElementById("paese").value;
     let cap = document.getElementById("cap").value;
     let provincia = document.getElementById("provincia").value;
-    let lat = document.getElementById("lat").value;
-    let lon = document.getElementById("lon").value;
+    let lat = parseFloat(document.getElementById("lat").value);
+    let lon = parseFloat(document.getElementById("lon").value);
 
     let nuovoPreventivo = ({
         numeroPreventivo : numeroPreventivo,
