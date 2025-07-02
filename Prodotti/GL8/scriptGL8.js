@@ -304,16 +304,12 @@ function aggiungiPreventivo(event) {
         nuovoPreventivo.legno = legno;
     }
 
-    if(document.getElementById("grecataLegno").checked) {
-        let  grecataLegno = document.getElementById("grecataLegno").value;
-
-        nuovoPreventivo.doghe = grecataLegno;
+    if (document.getElementById("grecataLegno").checked) {
+        nuovoPreventivo.grecataLegno = document.getElementById("grecataLegno").value;
     }
-    
-    if(document.getElementById("grecataCLSAlleggerito").checked) {
-        let  grecataCLSAlleggerito = document.getElementById("grecataCLSAlleggerito").value;
 
-        nuovoPreventivo.doghe = grecataCLSAlleggerito;
+    if (document.getElementById("grecataCLSAlleggerito").checked) {
+        nuovoPreventivo.grecataCLSAlleggerita = document.getElementById("grecataCLSAlleggerito").value;
     }
 
     let pesoPavimento = document.getElementById("pesoPavimento").value;
@@ -329,7 +325,7 @@ function aggiungiPreventivo(event) {
         }
 
         nuovoPreventivo.finitura = "Colore"
-        nuovoPreventivo.colore = colore;
+        nuovoPreventivo.colore = "Colore a Scelta - " + colore;
     }
     else if (finitura && finitura.value === "finituraZincatura") {
 

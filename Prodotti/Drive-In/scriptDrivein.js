@@ -292,7 +292,7 @@ function aggiungiPreventivo(event) {
         }
 
         nuovoPreventivo.finitura = "Colore"
-        nuovoPreventivo.colore = colore;
+        nuovoPreventivo.colore = "Colore a Scelta - " + colore;
     }
     else if (finitura && finitura.value === "finituraZincatura") {
 
