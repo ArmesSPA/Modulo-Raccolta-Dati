@@ -305,11 +305,13 @@ function aggiungiPreventivo(event) {
     }
 
     if (document.getElementById("grecataLegno").checked) {
-        nuovoPreventivo.grecataLegno = document.getElementById("grecataLegno").value;
+        let grecataLegno = document.getElementById("grecataLegno").value;
+        nuovoPreventivo.grecataLegno = grecataLegno;
     }
 
     if (document.getElementById("grecataCLSAlleggerito").checked) {
-        nuovoPreventivo.grecataCLSAlleggerita = document.getElementById("grecataCLSAlleggerito").value;
+        grecataCLSAlleggerito = document.getElementById("grecataCLSAlleggerito").value;
+        nuovoPreventivo.grecataCLSAlleggerito = grecataCLSAlleggerito;
     }
 
     let pesoPavimento = document.getElementById("pesoPavimento").value;
