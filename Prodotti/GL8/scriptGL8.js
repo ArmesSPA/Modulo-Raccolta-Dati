@@ -324,10 +324,11 @@ function aggiungiPreventivo(event) {
 
         if (colore === "Colore Speciale a Scelta") {
             colore = document.getElementById("colore-speciale").value;
+            nuovoPreventivo.colore = "Colore a Scelta - " + colore;
         }
 
         nuovoPreventivo.finitura = "Colore"
-        nuovoPreventivo.colore = "Colore a Scelta - " + colore;
+        nuovoPreventivo.colore = colore;      
     }
     else if (finitura && finitura.value === "finituraZincatura") {
 
